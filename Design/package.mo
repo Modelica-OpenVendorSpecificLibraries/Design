@@ -1,5 +1,32 @@
 within ;
 package Design "Design (empty version)"
+
+  package Experimentation
+    package RandomNumber
+      package Functions
+        function random
+          output Real y;
+        external "C" y = myrand() annotation (
+          Include = "
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+
+double myrand () {
+  time_t t;
+  /* init */
+  srand((unsigned) time(&t));
+  return (double)rand()/(double)RAND_MAX;
+}
+");
+        end random;
+
+      end Functions;
+    end RandomNumber;
+  end Experimentation;
+  
+
+
   annotation(version="0.0.0",
              conversion(
                noneFromVersion="1.0.0",
